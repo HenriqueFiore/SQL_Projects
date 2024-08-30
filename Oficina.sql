@@ -36,6 +36,7 @@ Foreign Key(ID_Cor) References Cor(IDCor);
 Alter Table Carro_Cor ADD Constraint FK_Carro
 Foreign Key(ID_Carro) References Carro(IDCarro);
 
+/**/
 
 Insert into Cor Values(null, 'Preto');/*1*/
 Insert into Cor Values(null, 'Branco');
@@ -112,7 +113,6 @@ Insert into Carro_Cor Values(21, 1);
 Insert into Carro_Cor Values(22, 9);
 Insert into Carro_Cor Values(23, 10);
 
-
 Insert into Cliente Values(null, 'Marcos', '45636974123', 1);
 Insert into Cliente Values(null, 'Juliana', '78566214565', 2);
 Insert into Cliente Values(null, 'João', '76312512209', 3);
@@ -169,6 +169,7 @@ Insert into Telefone values(null, '943621867', 'RES', 10);
 Insert into Telefone values(null, '918624356', 'RES', 11);
 Insert into Telefone values(null, '996267843', 'RES', 13);
 
+/*View completa*/
 
 CREATE View Relatorio as
 Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
@@ -183,26 +184,80 @@ Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Model
 	Inner Join telefone t
 	on k.IDCliente = t.ID_Cliente;
 
-CREATE Procedure Ve_Placa(Placa varchar(8))
+CREATE Procedure Ve_Placa(TPlaca varchar(8))
 begin
 	Select * from Relatorio
-		where Placa = c.Placa;
+		where TPlaca = Placa;
 end:
 
-CREATE Procedure Ve_CPF(CPF varchar(11))
+CREATE Procedure Ve_CPF(TCPF varchar(11))
 begin
 	Select * from Relatorio
-		where CPF = k.CPF;
+		where TCPF = CPF;
 end:
 
 CREATE Procedure Ve_IDC(IDC int)
 begin
 	Select * from Relatorio
-		where IDC = c.IDCarro;
+		where IDC = IDCarro;
 end:
 
 CREATE Procedure Ve_IDK(IDK int)
 begin
 	Select * from Relatorio
-		where IDK = k.IDCliente;
+		where IDK = IDCliente;
+end:
+
+Create procedure Ve_Marca(TMarca varchar(30))
+begin
+	select * from Relatorio
+		where TMarca = Marca;
+end:
+
+/*View Cliente*/
+
+CREATE View Rel_Cliente as
+Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo from cliente k
+	Inner Join telefone t
+	on k.IDCliente = t.ID_Cliente;
+
+CREATE Procedure CPF_Cliente(TCPF varchar(11))
+begin
+	Select * from Rel_Cliente
+	where TCPF = CPF;
+end:
+
+CREATE Procedure Num_Cliente(num varchar(11))
+begin
+	Select * from Rel_Cliente
+	where num = numero;
+end:
+
+/*View Carro*/
+
+CREATE View Rel_Carro as
+Select c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
+	Inner Join Marca m
+	On c.ID_Marca = m.IDMarca
+	Inner Join Carro_Cor x
+	on (c.IDCarro = x.ID_Carro)
+	Inner Join cor z
+	on z.IDCor = x.ID_Cor
+
+Create Procedure Placa_Carro(TPlaca varchar(8))
+begin
+	Select * from Rel_Carro
+	where TPlaca = placa;
+end:
+
+Create Procedure Marca_Carro(TMarca varchar(8))
+begin
+	Select * from Rel_Carro
+	where TMarca = Marca;
+end:
+
+Create Procedure Modelo_Carro(TModelo varchar(8))
+begin
+	Select * from Rel_Carro
+	where TModelo = Modelo;
 end:
