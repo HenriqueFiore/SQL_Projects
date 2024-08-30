@@ -169,66 +169,40 @@ Insert into Telefone values(null, '943621867', 'RES', 10);
 Insert into Telefone values(null, '918624356', 'RES', 11);
 Insert into Telefone values(null, '996267843', 'RES', 13);
 
+
+CREATE View Relatorio as
+Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
+	Inner Join Marca m
+	On c.ID_Marca = m.IDMarca
+	Inner Join Carro_Cor x
+	on (c.IDCarro = x.ID_Carro)
+	Inner Join cor z
+	on z.IDCor = x.ID_Cor
+	Inner Join Cliente k
+	on k.ID_Carro = c.IDCarro
+	Inner Join telefone t
+	on k.IDCliente = t.ID_Cliente;
+
 CREATE Procedure Ve_Placa(Placa varchar(8))
 begin
-	Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
-		Inner Join Marca m
-		On c.ID_Marca = m.IDMarca
-		Inner Join Carro_Cor x
-		on (c.IDCarro = x.ID_Carro)
-		Inner Join cor z
-		on z.IDCor = x.ID_Cor
-		Inner Join Cliente k
-		on k.ID_Carro = c.IDCarro
-		Inner Join telefone t
-		on k.IDCliente = t.ID_Cliente
+	Select * from Relatorio
 		where Placa = c.Placa;
 end:
 
 CREATE Procedure Ve_CPF(CPF varchar(11))
 begin
-	Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
-		Inner Join Marca m
-		On c.ID_Marca = m.IDMarca
-		Inner Join Carro_Cor x
-		on (c.IDCarro = x.ID_Carro)
-		Inner Join cor z
-		on z.IDCor = x.ID_Cor
-		Inner Join Cliente k
-		on k.ID_Carro = c.IDCarro
-		Inner Join telefone t
-		on k.IDCliente = t.ID_Cliente
+	Select * from Relatorio
 		where CPF = k.CPF;
 end:
 
 CREATE Procedure Ve_IDC(IDC int)
 begin
-	Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
-		Inner Join Marca m
-		On c.ID_Marca = m.IDMarca
-		Inner Join Carro_Cor x
-		on (c.IDCarro = x.ID_Carro)
-		Inner Join cor z
-		on z.IDCor = x.ID_Cor
-		Inner Join Cliente k
-		on k.ID_Carro = c.IDCarro
-		Inner Join telefone t
-		on k.IDCliente = t.ID_Cliente
+	Select * from Relatorio
 		where IDC = c.IDCarro;
 end:
 
 CREATE Procedure Ve_IDK(IDK int)
 begin
-	Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
-		Inner Join Marca m
-		On c.ID_Marca = m.IDMarca
-		Inner Join Carro_Cor x
-		on (c.IDCarro = x.ID_Carro)
-		Inner Join cor z
-		on z.IDCor = x.ID_Cor
-		Inner Join Cliente k
-		on k.ID_Carro = c.IDCarro
-		Inner Join telefone t
-		on k.IDCliente = t.ID_Cliente
+	Select * from Relatorio
 		where IDK = k.IDCliente;
 end:
