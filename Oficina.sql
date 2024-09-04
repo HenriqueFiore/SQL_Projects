@@ -187,31 +187,31 @@ Select k.IDCliente, k.Nome, k.CPF, t.Numero, t.Tipo, c.IDCarro, m.Marca, c.Model
 CREATE Procedure Ve_Placa(TPlaca varchar(8))
 begin
 	Select * from Relatorio
-		where TPlaca = Placa;
+	where TPlaca = Placa;
 end:
 
 CREATE Procedure Ve_CPF(TCPF varchar(11))
 begin
 	Select * from Relatorio
-		where TCPF = CPF;
+	where TCPF = CPF;
 end:
 
 CREATE Procedure Ve_IDC(IDC int)
 begin
 	Select * from Relatorio
-		where IDC = IDCarro;
+	where IDC = IDCarro;
 end:
 
 CREATE Procedure Ve_IDK(IDK int)
 begin
 	Select * from Relatorio
-		where IDK = IDCliente;
+	where IDK = IDCliente;
 end:
 
 Create procedure Ve_Marca(TMarca varchar(30))
 begin
 	select * from Relatorio
-		where TMarca = Marca;
+	where TMarca = Marca;
 end:
 
 /*View Cliente*/
@@ -242,7 +242,7 @@ Select c.IDCarro, m.Marca, c.Modelo, c.Placa, z.cor  from Carro c
 	Inner Join Carro_Cor x
 	on (c.IDCarro = x.ID_Carro)
 	Inner Join cor z
-	on z.IDCor = x.ID_Cor
+	on z.IDCor = x.ID_Cor;
 
 Create Procedure Placa_Carro(TPlaca varchar(8))
 begin
@@ -250,14 +250,20 @@ begin
 	where TPlaca = placa;
 end:
 
-Create Procedure Marca_Carro(TMarca varchar(8))
+Create Procedure Marca_Carro(TMarca varchar(30))
 begin
 	Select * from Rel_Carro
 	where TMarca = Marca;
 end:
 
-Create Procedure Modelo_Carro(TModelo varchar(8))
+Create Procedure Modelo_Carro(TModelo varchar(30))
 begin
 	Select * from Rel_Carro
 	where TModelo = Modelo;
+end:
+
+Create Procedure Cor_Carro(TCor varchar(30))
+begin
+	Select * from Rel_Carro
+	where TCor = cor;
 end:
